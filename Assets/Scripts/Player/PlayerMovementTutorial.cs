@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerMovementTutorial : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
+    public float moveSpeed = 3;
 
     public float groundDrag;
 
@@ -15,7 +15,7 @@ public class PlayerMovementTutorial : MonoBehaviour
     public float airMultiplier;
 
     [HideInInspector] public float walkSpeed;
-    [HideInInspector] public float sprintSpeed;
+    public float sprintSpeed;
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -37,13 +37,10 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     public bool isWalking;
 
-    //private Animator anim;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        //anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -68,13 +65,17 @@ public class PlayerMovementTutorial : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
-
-        //anim.SetFloat("Speed", Mathf.Abs(rb.velocity.magnitude));
     }
 
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        if (Input.GetKey("left shift"))
+        {
+            moveSpeed = sprintSpeed;
+        }
+        else
+            moveSpeed = 3;
 
         if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);

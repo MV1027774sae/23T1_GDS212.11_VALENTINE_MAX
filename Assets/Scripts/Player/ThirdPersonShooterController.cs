@@ -7,30 +7,27 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class ThirdPersonShooterController : MonoBehaviour
 {
-    //[SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
-    //[SerializeField] private LayerMask aimColliderMask = new LayerMask();
-
     //weapon stats
     public int weaponDamage, magazineCapacity, bulletsPerPress;
     public float timeBetweenShooting, timeBetweenShots, range, reloadTime;
     public bool allowButtonHold;
-    private int bulletsLeft, bulletsShot;
+    public int bulletsLeft;
 
     //bools
-    private bool shooting, readyToShoot, reloading, deadeyeActive;
+    public bool shooting, readyToShoot, reloading;
+    private bool deadeyeActive;
 
     //references
     public Camera playerCamera;
     public Transform muzzlePoint;
     public RaycastHit rayHit;
     public LayerMask isEnemy;
-//Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
     //graphics
     public TextMeshProUGUI ammunitionCounter;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip gunshot;
-    [SerializeField] private AudioClip reload;
+    [SerializeField] private AudioClip gunshot, reload, empty;
 
     [SerializeField] private ParticleSystem muzzleFlash;
 
@@ -39,6 +36,9 @@ public class ThirdPersonShooterController : MonoBehaviour
     public float deadeyeIncrease;
     [SerializeField] private TextMeshProUGUI deadeyeCounter;
 
+    [SerializeField] private HealthSlider slider;
+
+    [SerializeField] private GameObject deadeyePPVolume;
 
     private void Start()
     {
@@ -64,6 +64,15 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
         if (deadeyeResource >= 100)
             deadeyeResource = 100;
+
+        slider.SetHealth(deadeyeResource);
+
+        if (deadeyeActive)
+        {
+            deadeyePPVolume.SetActive(true);
+        }
+        else
+            deadeyePPVolume.SetActive(false);
     }
 
     private void MyInput()
@@ -78,6 +87,11 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             Shoot();
             muzzleFlash.Play();
+        }
+
+        if (readyToShoot && shooting && !reloading && bulletsLeft == 0)
+        {
+            audioSource.PlayOneShot(empty);
         }
 
         if (deadeyeActive && deadeyeResource > 0)
@@ -112,7 +126,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     private void Deadeye()
     {
-        Time.timeScale = 0.5f;
+        Time.timeScale = 0.35f;
     }
 
     private void ResetShot()

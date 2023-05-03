@@ -5,11 +5,11 @@ using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private HealthSlider healthSlider;
+    
     public float playerHealth;
     private float playerHealthMax = 100f;
     [SerializeField] private float healthRegen = 1f;
-
-    //public GameObject gameOver;
 
     public float healthIndicator;
     [SerializeField] private TextMeshProUGUI totalPlayerhealth;
@@ -32,15 +32,14 @@ public class PlayerHealth : MonoBehaviour
         {
             playerHealth = 0f;
 
-            //gameOver.SetActive(true);
-
             GetComponent<ThirdPersonShooterController>().enabled = false;
             GetComponent<PlayerMovementTutorial>().enabled = false;
-            //GetComponent<PauseMenu>().enabled = false;
 
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
+
+        healthSlider.SetHealth(playerHealth);
 
         totalPlayerhealth.text = Mathf.Round(playerHealth).ToString();
     }
