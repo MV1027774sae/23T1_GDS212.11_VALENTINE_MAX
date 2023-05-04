@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public int enemyHealth = 50;
     [SerializeField] private GameObject player;
+    public ParticleSystem bloodSplatter;
 
     private void Start()
     {

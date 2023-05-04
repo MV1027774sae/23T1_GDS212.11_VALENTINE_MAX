@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
 
     public float healthIndicator;
     [SerializeField] private TextMeshProUGUI totalPlayerhealth;
+    public ParticleSystem bloodSplatter;
 
     private void Start()
     {

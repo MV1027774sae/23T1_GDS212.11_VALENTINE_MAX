@@ -32,7 +32,8 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private ParticleSystem muzzleFlash;
 
     public float deadeyeResource = 100f;
-    [SerializeField] float deadeyeDeplete = 0.1f;
+    [SerializeField] float deadeyeDepleteOverTime = 0.1f;
+    [SerializeField] float deadeyeDeplete = 15f;
     public float deadeyeIncrease;
     [SerializeField] private TextMeshProUGUI deadeyeCounter;
 
@@ -97,10 +98,13 @@ public class ThirdPersonShooterController : MonoBehaviour
         if (deadeyeActive && deadeyeResource > 0)
         {
             Deadeye();
-            deadeyeResource -= deadeyeDeplete;
+            deadeyeResource -= deadeyeDepleteOverTime;
         }
         else
             deadeyeActive = false;
+
+        if (Input.GetButtonDown("Fire2"))
+            deadeyeResource -= deadeyeDeplete;
     }
 
     private void Shoot()
@@ -113,9 +117,13 @@ public class ThirdPersonShooterController : MonoBehaviour
                 if (deadeyeActive)
                 {
                     rayHit.collider.GetComponent<EnemyHealth>().enemyHealth -= weaponDamage * 2;
+                    rayHit.collider.GetComponent<EnemyHealth>().bloodSplatter.Play();
                 }
             else if (!deadeyeActive)
-                rayHit.collider.GetComponent<EnemyHealth>().enemyHealth -= weaponDamage;
+                {
+                    rayHit.collider.GetComponent<EnemyHealth>().enemyHealth -= weaponDamage;
+                    rayHit.collider.GetComponent<EnemyHealth>().bloodSplatter.Play();
+                }
         }
 
         bulletsLeft--;
