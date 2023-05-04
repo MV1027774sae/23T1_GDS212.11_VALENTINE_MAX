@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -400,13 +400,13 @@ MonoBehaviour:
 
 
     Mind
-    your health and ammo, the orange and white numbers respectively, or you''ll meet
-    an early grave. Reload with R.
+    your health and ammo, the orange bar and white numbers respectively, or you''ll
+    meet an early grave. Reload with R.
 
 
     Use "Deadeye" by holding down right-click
     to even up the odds by slowing down time and boosting your damage. Using Deadeye
-    depletes your Deadeye resource, the number in orange, killing baddies will fill
+    depletes your Deadeye resource, the bar in orange, killing baddies will fill
     it back up.
 
 '
