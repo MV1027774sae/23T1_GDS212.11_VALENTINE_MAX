@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    [SerializeField] private int projectileDamage = 20;
+    [SerializeField] private int projectileDamage = 25;
 
     private void OnCollisionEnter(Collision collision)
     {

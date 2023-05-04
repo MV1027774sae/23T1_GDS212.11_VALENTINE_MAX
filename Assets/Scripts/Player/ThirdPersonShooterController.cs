@@ -15,7 +15,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     //bools
     public bool shooting, readyToShoot, reloading;
-    private bool deadeyeActive;
+    public bool deadeyeActive;
 
     //references
     public Camera playerCamera;

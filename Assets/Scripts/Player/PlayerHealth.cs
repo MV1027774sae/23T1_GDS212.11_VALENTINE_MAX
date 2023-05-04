@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -36,8 +37,10 @@ public class PlayerHealth : MonoBehaviour
             GetComponent<ThirdPersonShooterController>().enabled = false;
             GetComponent<PlayerMovementTutorial>().enabled = false;
 
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            SceneManager.LoadScene(0);
         }
 
         healthSlider.SetHealth(playerHealth);
